@@ -129,8 +129,8 @@ describe('store getters.ingredientsWithDate', () => {
   });
 });
 
-describe('store getters.ingredientsUseByExpired', () => {
-  it('returns ingredients use by expired', () => {
+describe('store getters.ingredientsUseByNotExpired', () => {
+  it('returns ingredients use by that are not expired', () => {
     const mockGetters = {
       ingredientsWithDate: [
           {
@@ -144,9 +144,9 @@ describe('store getters.ingredientsUseByExpired', () => {
         ]
     };
     const state = {}
-    const expected = ['Anchovies'];
+    const expected = ['Cheese'];
 
-    const result = getters.ingredientsUseByExpired(state, mockGetters);
+    const result = getters.ingredientsUseByNotExpired(state, mockGetters);
 
     expect(result).toEqual(expected);
   });
@@ -176,17 +176,18 @@ describe('store getters.ingredientsBestBeforeExpired', () => {
 });
 
 describe("store getters.recipesAvailable", () => {
-  it("returns recipes with ingredients non-expired use by date", () => {
+  it("returns recipes with ingredients not expired use by date", () => {
     const mockGetters = {
-      ingredientsUseByExpired: [
-        'Anchovies'
+      ingredientsUseByNotExpired: [
+        'Cheese',
+        'Bread'
       ]
     };
     const state = {
       recipes: [
         {
           title: 'Pizza',
-          ingredients: ['Anchovies', 'Cheese']
+          ingredients: ['Anchovies', 'Cheese'], 
         },
         {
           title: 'Pie',

@@ -11,11 +11,11 @@ export default {
             bestBefore: new Date(ingredient['best-before'])
         }));
     },
-    // get array of expired ingredients 
-    ingredientsUseByExpired(state, getters) {
+    // get array of not expired ingredients 
+    ingredientsUseByNotExpired(state, getters) {
         const today = new Date();
         return getters.ingredientsWithDate
-            .filter(ingredient => ingredient.useBy < today)
+            .filter(ingredient => ingredient.useBy >= today)
             .map(ingredient => ingredient.title);
     },
     // get array of ingredients past best before date
@@ -27,10 +27,25 @@ export default {
     },
     // get array of recipes without expired ingredients
     recipesAvailable(state, getters) {
+        console.log('state',state);
+
+        // const ingredientList = state.ingredients.map(ingredient => ingredient.title);
+
+        // console.log('ingredientList', ingredientList);
+
+        // const firstStage = state.recipes.filter(recipe => {
+
+        //     return recipe.ingredients.every(ingredient => {
+        //         return ingredientList.includes(ingredient);
+        //     });
+        // });
+
+        // console.log("firstStage", firstStage);
+
         return state.recipes.filter(recipe => {
-            // make sure every ingredient of the recipe is not in the use by expired list
+            // must have every ingredient for the recipe
             return recipe.ingredients.every(ingredient => {
-                return !getters.ingredientsUseByExpired.includes(ingredient);
+                return getters.ingredientsUseByNotExpired.includes(ingredient);
             });
         });
     },
