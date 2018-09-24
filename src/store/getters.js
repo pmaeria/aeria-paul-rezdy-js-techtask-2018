@@ -27,21 +27,7 @@ export default {
     },
     // get array of recipes without expired ingredients
     recipesAvailable(state, getters) {
-        console.log('state',state);
-
-        // const ingredientList = state.ingredients.map(ingredient => ingredient.title);
-
-        // console.log('ingredientList', ingredientList);
-
-        // const firstStage = state.recipes.filter(recipe => {
-
-        //     return recipe.ingredients.every(ingredient => {
-        //         return ingredientList.includes(ingredient);
-        //     });
-        // });
-
-        // console.log("firstStage", firstStage);
-
+        
         return state.recipes.filter(recipe => {
             // must have every ingredient for the recipe
             return recipe.ingredients.every(ingredient => {
